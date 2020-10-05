@@ -234,6 +234,7 @@ Resources:
     Condition: HasCertificate
     Properties:
       ServiceToken: !GetAtt CertificateLambda.Arn
+      Region: us-east-1
       DomainName: !Ref DomainName
       HostedZoneName: !Ref HostedZone
       StackName: !Ref 'AWS::StackName'

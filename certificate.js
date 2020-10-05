@@ -2,7 +2,7 @@
  * CloudFormation Custom Resource for generating SSL Certificate in the us-east-1 region
  */
 const AWS = require('aws-sdk');
-var acm = new AWS.ACM({region:'us-east-1'});
+var acm = new AWS.ACM();
 var route53 = new AWS.Route53();
 var cloudformation = new AWS.CloudFormation();
 
@@ -12,6 +12,11 @@ const sleep = (milliseconds) => {
 
 module.exports.handler = async(event, context) => {
     console.log(JSON.stringify(event));
+
+    if (event.ResourceProperties.Region != null) {
+        acm = new AWS.ACM({region:event.ResourceProperties.Region});
+    }
+
     if (event.RequestType != null) {
 
         if (event.RequestType === 'Create') {
